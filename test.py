@@ -4,6 +4,7 @@ from py532lib.constants import *
 pn532 = Pn532_i2c()
 pn532.SAMconfigure()
 
-d = pn532.read_mifare().get_data()
+while True:
+	d = pn532.read_mifare().get_data()
 
-print(d)
+	print(d)
