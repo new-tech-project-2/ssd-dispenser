@@ -29,7 +29,7 @@ def MotorControl(num):
 		GPIO.output(motorA1, GPIO.LOW)
 		GPIO.output(motorA2, GPIO.LOW)
 
-def user_register():
+def user_touch():
 	MotorControl(0)
 	data = pn532.read_mifare().get_data()
 	print("data: ",data)
@@ -39,25 +39,17 @@ def user_register():
     		if i == -7 and int(data[i]) < 10:
         		res = "0"
     		res += str(hex(data[i]))[2:]
-	print("user code to register: ", res)
+	print("user code: ", res)
 	return res
 	
 	
 	
 
 def user_drink():
-	data = pn532.read_mifare().get_data()
-	res = ""
-	for i in range(-7,0):
-		if i == -7 and int(data[i]) < 10:
-			res = "0"
-		res += str(hex(data[i]))[2:]
-	print("user code to drink: ", res)
 
 	MotorControl(1)
-	sleep(3)
+	sleep(1.5)
 	MotorControl(0)
-	return res
 
 def get_token():
 	return TOKEN

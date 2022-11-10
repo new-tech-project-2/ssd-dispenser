@@ -1,23 +1,27 @@
 from time import sleep
 from config import SERVER
-from drinker import user_register, user_drink, get_token,init,clear
+from drinker import user_touch, user_drink, get_token,init,clear
 import requests
 import socketio
 import multiprocessing
+def debug(s):
+    print("[debug]",s,"\n")
 
 def dispenser_proc(q):
     token = get_token()
     init()
     request_body = {'dispenserToken' : token}
-    
+    mode = 0 
     while(True):
+
+        userid = user_touch()
+        debug(str(userid))
+
         if q.qsize() > 0:
             mode = q.get()
 
-        print("mode: ", mode)
+        debug("mode: "+str(mode))
         if mode == '0':
-            userid = user_register()
-            print("userid: ", userid)
 
             url = SERVER + '/drinker/' + str(userid)
             print(url, request_body)
@@ -25,14 +29,12 @@ def dispenser_proc(q):
             print(res.text)
 
         elif mode == '1':
-            userid = user_drink()
+            user_drink()
             url = SERVER + '/drinker/' + str(userid) + '/drink'
             print(url, request_body)
             res = requests.patch(url, data = request_body)
             print(res.text)
             sleep(3)
-
-
 
 
 sio = socketio.Client()
