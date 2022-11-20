@@ -12,6 +12,10 @@
 ### 👉 연계 Frontend 서버
 > https://github.com/new-tech-project-2/ssd-frontend
 
+### 사용 부품
+![image](https://user-images.githubusercontent.com/39671049/202901075-9060078b-c9e0-4ca7-ba2e-306ee0396b23.png)
+
+
 # Execution
 ```
 python3 my_websocket.py
